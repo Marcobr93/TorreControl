@@ -8,7 +8,7 @@ import java.util.Date;
  * Created by joaquinjimenezgarcia on 4/5/17.
  */
 public class Avion {
-    private String codVuelo;
+    private String codigoVuelo;
     private String aerolinea;
     private int velocidad;
     private Date fechaHora;
@@ -16,7 +16,7 @@ public class Avion {
     private boolean llegada;
 
     public Avion() {
-        this.codVuelo = "Desconocida";
+        this.codigoVuelo = "Desconocida";
         this.aerolinea = "Desconocida";
         this.velocidad = 0;
         this.fechaHora = new Date();
@@ -32,14 +32,14 @@ public class Avion {
     }
 
     public String getCodVuelo() {
-        return codVuelo;
+        return codigoVuelo;
     }
 
     public void setCodVuelo(String codVuelo) {
         if (codVuelo.equals("")){
-            this.codVuelo = "Desconocido";
+            this.codigoVuelo = "Desconocido";
         }else {
-            this.codVuelo = codVuelo;
+            this.codigoVuelo = codVuelo;
         }
     }
 
@@ -89,14 +89,13 @@ public class Avion {
 
     @Override
     public String toString() {
-        return "Avion( " +
-                "codVuelo = " + codVuelo +
-                ", aerolinea = " + aerolinea +
-                ", velocidad = " + velocidad + " km/h" +
-                ", fechaHora = " + fechaHora +
-                ", distancia = " + actualizarDistancia() + " km" +
-                " " + haLlegado() +
-                " )";
+        return "Avion: " +
+                "código de vuelo: " + codigoVuelo +
+                ", aerolínea: " + aerolinea +
+                ", velocidad: " + velocidad + " km/h" +
+                ", fecha y hora: " + fechaHora +
+                ", distancia: " + actualizarDistancia() + " km" +
+                ", " + haLlegado();
     }
 
     public static Comparator<Avion> comparadorPorDistancia = new Comparator<Avion>() {
@@ -111,10 +110,10 @@ public class Avion {
         double velocidadSegundos;
         Date actual = new Date();
 
-        double lantes = this.getFechaHora().getTime();
-        double lahora = actual.getTime();
+        double distanciaAntes = this.getFechaHora().getTime();
+        double distanciaAhora = actual.getTime();
 
-        double diff = (lahora - lantes)/(1000*60);
+        double diff = (distanciaAhora - distanciaAntes)/(1000*60);
 
         velocidadSegundos = (double)this.getVelocidad() / 3600;
 
@@ -132,9 +131,9 @@ public class Avion {
 
     private String haLlegado(){
         if (llegada){
-            return "Ha llegado a su destino";
+            return "el avión ha llegado a su destino";
         }else{
-            return "En camino.";
+            return "avión en camino.";
         }
     }
 }
