@@ -1,11 +1,9 @@
-package com.company.Model;
+package com.company.Modelo;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
-/**
- * Created by joaquinjimenezgarcia on 4/5/17.
- */
+
 public class ListaAviones {
     private ArrayList<Avion> aviones;
 
@@ -13,14 +11,21 @@ public class ListaAviones {
         aviones = new ArrayList<>();
     }
 
-    public void sumarAvion(Avion avion){
+    /**
+     * Método para añadir aviones
+     * @param avion
+     */
+    public void añadirAvion(Avion avion){
         if (avion != null){
             aviones.add(avion);
         }
     }
 
+    /**
+     * Método para mostrar los aviones
+     */
     public void mostrarAviones(){
-        Collections.sort(aviones, Avion.comparadorPorDistancia);
+        Collections.sort(aviones, Avion.comparadorDistancia);
 
         for (Avion avion: aviones){
             System.out.println(avion);

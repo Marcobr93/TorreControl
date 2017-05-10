@@ -1,29 +1,29 @@
-package com.company.Controller;
+package com.company.Controlador;
 
 
-import com.company.Model.Avion;
-import com.company.Model.ListaAviones;
+import com.company.Modelo.Avion;
+import com.company.Modelo.ListaAviones;
 
 import java.util.Date;
 import java.util.Scanner;
 
-/**
- * Created by joaquinjimenezgarcia on 4/5/17.
- */
-public class RadarApp {
+public class Menu {
     ListaAviones listaAviones;
 
-    public RadarApp(){
+    public Menu(){
         listaAviones = new ListaAviones();
     }
 
+    /**
+     * Método para iniciar el programa
+     */
     public void run(){
         int option;
 
-        while ((option = showMenu())!= 0){
+        while ((option = mostrarMenu())!= 0){
             switch (option) {
                 case 1:
-                    listaAviones.sumarAvion(leerAvion());
+                    listaAviones.añadirAvion(leerAvion());
                     break;
                 case 2:
                     if (listaAviones.longitud()>0){
@@ -36,6 +36,10 @@ public class RadarApp {
         }
     }
 
+    /**
+     * Método para introducir los datos del avión
+     * @return
+     */
     public Avion leerAvion(){
         Scanner input = new Scanner (System.in);
         String codVuelo;
@@ -56,14 +60,14 @@ public class RadarApp {
         }while (aerolinea.equals(""));
 
         do {
-            System.out.println("Velocidad de la aeronave: ");
+            System.out.println("Inserte la velocidad del avión: ");
             velocidad = input.nextInt();
         }while (velocidad <= 0);
 
         fechaHora = new Date();
 
         do {
-            System.out.println("Distancia a pista: ");
+            System.out.println("Inserte la distancia faltante a pista: ");
             distancia = input.nextDouble();
         }while (distancia <= 0.0);
 
@@ -72,14 +76,18 @@ public class RadarApp {
         return avion;
     }
 
-    public int showMenu(){
+    /**
+     * Método para imprimir el menú utilizado para registrar y mostrar los aviones introducidos
+     * @return
+     */
+    public int mostrarMenu(){
         Scanner input = new Scanner(System.in);
         int option;
 
         System.out.println("****************************");
-        System.out.println("* 1. Registrar aeronave    *");
+        System.out.println("* 1. Registrar avión    *");
         if (listaAviones.longitud()>0) {
-            System.out.println("* 2. Aeronaves registradas *");
+            System.out.println("* 2. Aviones registrados *");
         }
         System.out.println("* 0. Salir                 *");
         System.out.println("****************************");

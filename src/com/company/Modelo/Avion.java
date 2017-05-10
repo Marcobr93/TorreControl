@@ -1,12 +1,10 @@
-package com.company.Model;
+package com.company.Modelo;
 
 
 import java.util.Comparator;
 import java.util.Date;
 
-/**
- * Created by joaquinjimenezgarcia on 4/5/17.
- */
+
 public class Avion {
     private String codigoVuelo;
     private String aerolinea;
@@ -15,9 +13,11 @@ public class Avion {
     private double distancia;
     private boolean llegada;
 
+    // Constructores
+
     public Avion() {
-        this.codigoVuelo = "Desconocida";
-        this.aerolinea = "Desconocida";
+        this.codigoVuelo = "Código de vuelo desconocido";
+        this.aerolinea = "Aerolínea desconocida";
         this.velocidad = 0;
         this.fechaHora = new Date();
         this.distancia = 0;
@@ -30,6 +30,8 @@ public class Avion {
         this.setFechaHora();
         this.setDistancia(distancia);
     }
+
+    // Accesores
 
     public String getCodVuelo() {
         return codigoVuelo;
@@ -87,48 +89,22 @@ public class Avion {
         }
     }
 
-    @Override
-    public String toString() {
-        return "Avion: " +
-                "código de vuelo: " + codigoVuelo +
-                ", aerolínea: " + aerolinea +
-                ", velocidad: " + velocidad + " km/h" +
-                ", fecha y hora: " + fechaHora +
-                ", distancia: " + actualizarDistancia() + " km" +
-                ", " + haLlegado();
-    }
-
-    public static Comparator<Avion> comparadorPorDistancia = new Comparator<Avion>() {
+    // Métodos
+    /**
+     * Método para comparar la distancia a pista de  los aviones que vamos añadiendo para saber cuál está más próximo
+     * y poder ordenarlos
+     */
+    public static Comparator<Avion> comparadorDistancia = new Comparator<Avion>() {
         @Override
         public int compare(Avion avion1, Avion avion2) {
             return (int)avion1.getDistancia() - (int)avion2.getDistancia();
         }
     };
 
-    public double actualizarDistancia(){
-        double nuevaDistancia;
-        double velocidadSegundos;
-        Date actual = new Date();
-
-        double distanciaAntes = this.getFechaHora().getTime();
-        double distanciaAhora = actual.getTime();
-
-        double diff = (distanciaAhora - distanciaAntes)/(1000*60);
-
-        velocidadSegundos = (double)this.getVelocidad() / 3600;
-
-        nuevaDistancia = this.getDistancia() - (diff * velocidadSegundos);
-
-        if (nuevaDistancia > 0) {
-            this.setDistancia(nuevaDistancia);
-            return nuevaDistancia;
-        }else{
-            this.setDistancia(0);
-            llegada = true;
-            return 0.0;
-        }
-    }
-
+    /**
+     * Método booleano que nos sirve para indicar si un avión está de camino a pista o ha llegado a su destino.
+     * @return
+     */
     private String haLlegado(){
         if (llegada){
             return "el avión ha llegado a su destino";
@@ -136,4 +112,16 @@ public class Avion {
             return "avión en camino.";
         }
     }
+
+    @Override
+    public String toString() {
+        return "Avion: " +
+                "código de vuelo: " + codigoVuelo +
+                ", aerolínea: " + aerolinea +
+                ", velocidad: " + velocidad + " km/h" +
+                ", fecha y hora: " + fechaHora +
+                ", distancia: " + distancia + " km" +
+                ", " + haLlegado();
+    }
 }
+
